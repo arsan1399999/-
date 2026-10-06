@@ -1,0 +1,2603 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AR School 2</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+ --primary:#5865d9;
+ --primary-light:#eef0ff;
+ --bg:#f6f7f9;
+ --white:#fff;
+ --text:#252a33;
+ --muted:#7b8490;
+ --border:#e2e5e9;
+ --green:#2c9b68;
+ --red:#d85b5b;
+ --orange:#c88932;
+}
+
+body{
+ font-family:Vazirmatn,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ font-size:14px;
+}
+
+button,input,select,textarea{
+ font-family:inherit;
+}
+
+button{cursor:pointer}
+
+.app{
+ min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+ position:fixed;
+ right:0;
+ top:0;
+ bottom:0;
+ width:245px;
+ background:#fff;
+ border-left:1px solid var(--border);
+ padding:20px 15px;
+ z-index:50;
+ transition:.25s;
+}
+
+.brand{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ padding:5px 8px 20px;
+ border-bottom:1px solid #eee;
+}
+
+.brand-logo{
+ width:40px;
+ height:40px;
+ border-radius:7px;
+ background:var(--primary);
+ color:#fff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-weight:700;
+}
+
+.brand h1{font-size:17px}
+.brand small{font-size:9px;color:var(--muted)}
+
+.role-box{
+ margin:17px 0;
+ border:1px solid var(--border);
+ border-radius:7px;
+ padding:10px;
+}
+
+.role-box label{
+ display:block;
+ color:var(--muted);
+ font-size:9px;
+ margin-bottom:6px;
+}
+
+.role-select{
+ width:100%;
+ border:1px solid var(--border);
+ background:#fafafa;
+ padding:8px;
+ border-radius:5px;
+ outline:none;
+}
+
+.menu-label{
+ font-size:9px;
+ color:#9aa1aa;
+ margin:16px 9px 6px;
+}
+
+.menu button{
+ width:100%;
+ border:0;
+ background:none;
+ padding:11px;
+ text-align:right;
+ border-radius:5px;
+ color:#606975;
+ margin:2px 0;
+ transition:.18s;
+}
+
+.menu button:hover{
+ background:#f3f4f7;
+}
+
+.menu button.active{
+ background:var(--primary-light);
+ color:var(--primary);
+ font-weight:600;
+ border-right:3px solid var(--primary);
+}
+
+.menu-icon{
+ width:25px;
+ display:inline-block;
+}
+
+/* MAIN */
+
+.main{
+ margin-right:245px;
+ min-height:100vh;
+}
+
+.topbar{
+ height:65px;
+ background:#fff;
+ border-bottom:1px solid var(--border);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 28px;
+}
+
+.mobile-menu{
+ display:none;
+ border:0;
+ background:none;
+ font-size:22px;
+}
+
+.search{
+ width:280px;
+ height:38px;
+ border:1px solid var(--border);
+ border-radius:5px;
+ padding:0 13px;
+ outline:none;
+}
+
+.search:focus{
+ border-color:var(--primary);
+}
+
+.top-actions{
+ display:flex;
+ align-items:center;
+ gap:10px;
+}
+
+.top-button{
+ width:38px;
+ height:38px;
+ border:1px solid var(--border);
+ background:#fff;
+ border-radius:5px;
+}
+
+.top-button:hover{
+ background:#f5f6f8;
+}
+
+.profile{
+ display:flex;
+ align-items:center;
+ gap:8px;
+}
+
+.avatar{
+ width:35px;
+ height:35px;
+ border-radius:50%;
+ background:var(--primary);
+ color:#fff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+}
+
+/* CONTENT */
+
+.content{
+ max-width:1250px;
+ margin:auto;
+ padding:35px;
+}
+
+.page{
+ display:none;
+ animation:page .22s ease;
+}
+
+.page.active{
+ display:block;
+}
+
+@keyframes page{
+ from{opacity:0;transform:translateY(6px)}
+ to{opacity:1;transform:none}
+}
+
+.page-header{
+ margin-bottom:28px;
+}
+
+.page-header h2{
+ font-size:25px;
+ margin-bottom:5px;
+}
+
+.page-header p{
+ color:var(--muted);
+ font-size:12px;
+}
+
+/* HOME */
+
+.home-title{
+ margin-bottom:30px;
+}
+
+.home-title h2{
+ font-size:27px;
+}
+
+.home-title p{
+ color:var(--muted);
+ margin-top:6px;
+}
+
+.home-grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:18px;
+}
+
+.home-card{
+ background:#fff;
+ border:1px solid var(--border);
+ border-radius:9px;
+ padding:25px;
+ min-height:145px;
+ cursor:pointer;
+ transition:.2s;
+}
+
+.home-card:hover{
+ transform:translateY(-3px);
+ border-color:#bfc4df;
+ box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.home-icon{
+ width:45px;
+ height:45px;
+ background:var(--primary-light);
+ color:var(--primary);
+ border-radius:7px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:20px;
+ margin-bottom:18px;
+}
+
+.home-card h3{
+ font-size:15px;
+ margin-bottom:5px;
+}
+
+.home-card p{
+ font-size:10px;
+ color:var(--muted);
+}
+
+/* BACK */
+
+.back{
+ border:1px solid var(--border);
+ background:#fff;
+ padding:9px 15px;
+ border-radius:5px;
+ color:#606975;
+ margin-bottom:22px;
+}
+
+.back:hover{
+ background:#f5f6f8;
+}
+
+/* CARDS */
+
+.card{
+ background:#fff;
+ border:1px solid var(--border);
+ border-radius:8px;
+ padding:23px;
+ margin-bottom:18px;
+}
+
+.card-title{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:20px;
+}
+
+.card-title h3{
+ font-size:16px;
+}
+
+.action{
+ border:1px solid var(--border);
+ background:#fff;
+ padding:8px 13px;
+ border-radius:5px;
+ font-size:11px;
+}
+
+.action.primary{
+ background:var(--primary);
+ color:#fff;
+ border-color:var(--primary);
+}
+
+.action:hover{
+ opacity:.85;
+}
+
+/* COURSE LIST */
+
+.list{
+ display:grid;
+ gap:10px;
+}
+
+.list-item{
+ display:flex;
+ align-items:center;
+ gap:15px;
+ padding:15px;
+ border:1px solid var(--border);
+ border-radius:7px;
+ cursor:pointer;
+ transition:.18s;
+}
+
+.list-item:hover{
+ background:#fafbfc;
+ border-color:#bdc2df;
+}
+
+.list-icon{
+ width:42px;
+ height:42px;
+ border-radius:6px;
+ background:var(--primary-light);
+ color:var(--primary);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-weight:700;
+}
+
+.list-info{
+ flex:1;
+}
+
+.list-info h4{
+ font-size:13px;
+ margin-bottom:4px;
+}
+
+.list-info p{
+ color:var(--muted);
+ font-size:10px;
+}
+
+.arrow{
+ color:#9aa1aa;
+}
+
+/* TABLE */
+
+.table-wrap{
+ overflow:auto;
+}
+
+table{
+ width:100%;
+ border-collapse:collapse;
+}
+
+th,td{
+ padding:14px;
+ border-bottom:1px solid #edf0f2;
+ text-align:right;
+ font-size:11px;
+}
+
+th{
+ background:#fafbfc;
+ color:#7c8490;
+ font-weight:500;
+}
+
+.grade{
+ color:var(--primary);
+ font-weight:700;
+}
+
+/* DETAIL */
+
+.detail-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:14px;
+}
+
+.detail-card{
+ border:1px solid var(--border);
+ border-radius:7px;
+ padding:18px;
+ cursor:pointer;
+ transition:.18s;
+}
+
+.detail-card:hover{
+ border-color:#bdc2df;
+ background:#fafbff;
+}
+
+.detail-card h4{
+ font-size:13px;
+ margin-bottom:5px;
+}
+
+.detail-card p{
+ color:var(--muted);
+ font-size:10px;
+}
+
+/* PROGRESS */
+
+.progress{
+ height:6px;
+ background:#edf0f2;
+ border-radius:10px;
+ overflow:hidden;
+ margin-top:10px;
+}
+
+.progress span{
+ display:block;
+ height:100%;
+ background:var(--primary);
+}
+
+/* FORM */
+
+.form-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:15px;
+}
+
+.form-group label{
+ display:block;
+ font-size:10px;
+ color:var(--muted);
+ margin-bottom:6px;
+}
+
+.form-control{
+ width:100%;
+ border:1px solid var(--border);
+ border-radius:5px;
+ padding:10px;
+ outline:none;
+ background:#fff;
+}
+
+.form-control:focus{
+ border-color:var(--primary);
+}
+
+/* MODAL */
+
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(20,25,35,.35);
+ display:none;
+ align-items:center;
+ justify-content:center;
+ z-index:100;
+ padding:20px;
+}
+
+.modal.show{
+ display:flex;
+}
+
+.modal-box{
+ width:470px;
+ max-width:100%;
+ background:#fff;
+ border-radius:8px;
+ border:1px solid var(--border);
+ padding:25px;
+ animation:modal .2s ease;
+}
+
+@keyframes modal{
+ from{opacity:0;transform:scale(.97)}
+ to{opacity:1;transform:scale(1)}
+}
+
+.modal-head{
+ display:flex;
+ justify-content:space-between;
+ margin-bottom:17px;
+}
+
+.close{
+ border:0;
+ background:none;
+ font-size:22px;
+ color:#777;
+}
+
+/* TOAST */
+
+.toast{
+ position:fixed;
+ bottom:25px;
+ left:25px;
+ background:#252a33;
+ color:#fff;
+ padding:12px 18px;
+ border-radius:6px;
+ font-size:11px;
+ opacity:0;
+ transform:translateY(15px);
+ transition:.25s;
+ z-index:200;
+ pointer-events:none;
+}
+
+.toast.show{
+ opacity:1;
+ transform:none;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+ .sidebar{
+  transform:translateX(100%);
+ }
+
+ .sidebar.open{
+  transform:none;
+ }
+
+ .main{
+  margin-right:0;
+ }
+
+ .mobile-menu{
+  display:block;
+ }
+
+ .home-grid{
+  grid-template-columns:repeat(2,1fr);
+ }
+
+ .topbar{
+  padding:0 16px;
+ }
+
+ .search{
+  display:none;
+ }
+
+ .content{
+  padding:22px 17px;
+ }
+
+}
+
+@media(max-width:600px){
+
+ .home-grid{
+  grid-template-columns:1fr;
+ }
+
+ .detail-grid,
+ .form-grid{
+  grid-template-columns:1fr;
+ }
+
+ .content{
+  padding:18px 13px;
+ }
+
+ .page-header h2{
+  font-size:21px;
+ }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
+
+ <div class="brand">
+  <div class="brand-logo">AR</div>
+  <div>
+   <h1>AR School</h1>
+   <small>سامانه آموزشی</small>
+  </div>
+ </div>
+
+ <div class="role-box">
+
+  <label>نقش فعلی</label>
+
+  <select class="role-select" id="roleSelect" onchange="changeRole()">
+   <option value="student">دانش‌آموز</option>
+   <option value="teacher">معلم</option>
+   <option value="manager">مدیر</option>
+   <option value="parent">والد</option>
+  </select>
+
+ </div>
+
+ <div class="menu-label">اصلی</div>
+
+ <div class="menu">
+
+  <button class="active" onclick="go('home',this)">
+   <span class="menu-icon">⌂</span>
+   خانه
+  </button>
+
+  <button onclick="go('courses',this)">
+   <span class="menu-icon">▣</span>
+   درس‌ها
+  </button>
+
+  <button onclick="go('tasks',this)">
+   <span class="menu-icon">✓</span>
+   تکالیف
+  </button>
+
+  <button onclick="go('exams',this)">
+   <span class="menu-icon">▤</span>
+   آزمون‌ها
+  </button>
+
+  <button onclick="go('calendar',this)">
+   <span class="menu-icon">◫</span>
+   برنامه
+  </button>
+
+  <button onclick="go('grades',this)">
+   <span class="menu-icon">◉</span>
+   نمرات
+  </button>
+
+ </div>
+
+ <div class="menu-label">ارتباطات</div>
+
+ <div class="menu">
+
+  <button onclick="go('messages',this)">
+   <span class="menu-icon">✉</span>
+   پیام‌ها
+  </button>
+
+  <button onclick="go('notifications',this)">
+   <span class="menu-icon">♢</span>
+   اعلان‌ها
+  </button>
+
+  <button onclick="go('files',this)">
+   <span class="menu-icon">▱</span>
+   فایل‌ها
+  </button>
+
+ </div>
+
+ <div class="menu-label">سیستم</div>
+
+ <div class="menu">
+
+  <button onclick="go('settings',this)">
+   <span class="menu-icon">⚙</span>
+   تنظیمات
+  </button>
+
+ </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+ <header class="topbar">
+
+  <div>
+
+   <button class="mobile-menu"
+   onclick="document.getElementById('sidebar').classList.toggle('open')">
+   ☰
+   </button>
+
+   <input class="search"
+   id="search"
+   placeholder="جستجو..."
+   onkeydown="searchSite(event)">
+
+  </div>
+
+  <div class="top-actions">
+
+   <button class="top-button"
+   onclick="go('notifications')">
+   🔔
+   </button>
+
+   <button class="top-button"
+   onclick="go('messages')">
+   ✉
+   </button>
+
+   <div class="profile">
+
+    <div class="avatar" id="avatar">آ</div>
+
+    <span id="userName">
+     آرسان
+    </span>
+
+   </div>
+
+  </div>
+
+ </header>
+
+
+ <div class="content">
+
+
+<!-- =========================================================
+HOME
+========================================================= -->
+
+<section class="page active" id="home">
+
+ <div class="home-title">
+
+  <h2 id="welcomeTitle">
+   سلام آرسان 👋
+  </h2>
+
+  <p id="welcomeText">
+   از اینجا بخش موردنظرت را انتخاب کن.
+  </p>
+
+ </div>
+
+
+ <div class="home-grid">
+
+  <div class="home-card" onclick="go('courses')">
+
+   <div class="home-icon">📚</div>
+
+   <h3>درس‌ها</h3>
+
+   <p>
+    مشاهده دوره‌ها و محتوای آموزشی
+   </p>
+
+  </div>
+
+
+  <div class="home-card" onclick="go('tasks')">
+
+   <div class="home-icon">📝</div>
+
+   <h3>تکالیف</h3>
+
+   <p>
+    تکالیف جدید و تکالیف تحویل داده شده
+   </p>
+
+  </div>
+
+
+  <div class="home-card" onclick="go('exams')">
+
+   <div class="home-icon">📋</div>
+
+   <h3>آزمون‌ها</h3>
+
+   <p>
+    آزمون‌های فعال و نتایج آزمون‌ها
+   </p>
+
+  </div>
+
+
+  <div class="home-card" onclick="go('calendar')">
+
+   <div class="home-icon">📅</div>
+
+   <h3>برنامه</h3>
+
+   <p>
+    کلاس‌ها و تقویم آموزشی
+   </p>
+
+  </div>
+
+
+  <div class="home-card" onclick="go('grades')">
+
+   <div class="home-icon">📊</div>
+
+   <h3>نمرات</h3>
+
+   <p>
+    مشاهده نمرات و کارنامه
+   </p>
+
+  </div>
+
+
+  <div class="home-card" onclick="go('files')">
+
+   <div class="home-icon">📁</div>
+
+   <h3>فایل‌ها</h3>
+
+   <p>
+    جزوه‌ها، فایل‌ها و منابع درسی
+   </p>
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+COURSES
+========================================================= -->
+
+<section class="page" id="courses">
+
+ <button class="back" onclick="go('home')">
+  ← برگشت
+ </button>
+
+ <div class="page-header">
+
+  <h2>درس‌ها</h2>
+
+  <p>
+   یک درس را انتخاب کن تا وارد صفحه آن شوی.
+  </p>
+
+ </div>
+
+
+ <div class="card">
+
+  <div class="list">
+
+
+   <div class="list-item"
+   onclick="openCourse('ریاضی هفتم','۸ فصل · ۲۴ فعالیت')">
+
+    <div class="list-icon">∑</div>
+
+    <div class="list-info">
+
+     <h4>ریاضی هفتم</h4>
+
+     <p>آقای احمدی · کلاس ۷۰۱</p>
+
+    </div>
+
+    <span class="arrow">←</span>
+
+   </div>
+
+
+   <div class="list-item"
+   onclick="openCourse('علوم تجربی','۱۴ فصل · ۳۱ فعالیت')">
+
+    <div class="list-icon">⚗</div>
+
+    <div class="list-info">
+
+     <h4>علوم تجربی</h4>
+
+     <p>خانم رضایی · کلاس ۷۰۱</p>
+
+    </div>
+
+    <span class="arrow">←</span>
+
+   </div>
+
+
+   <div class="list-item"
+   onclick="openCourse('فارسی','۱۶ درس · ۲۷ فعالیت')">
+
+    <div class="list-icon">ف</div>
+
+    <div class="list-info">
+
+     <h4>فارسی</h4>
+
+     <p>آقای کریمی · کلاس ۷۰۱</p>
+
+    </div>
+
+    <span class="arrow">←</span>
+
+   </div>
+
+
+   <div class="list-item"
+   onclick="openCourse('زبان انگلیسی','۶ Unit · ۱۸ فعالیت')">
+
+    <div class="list-icon">A</div>
+
+    <div class="list-info">
+
+     <h4>زبان انگلیسی</h4>
+
+     <p>خانم محمدی · کلاس ۷۰۱</p>
+
+    </div>
+
+    <span class="arrow">←</span>
+
+   </div>
+
+
+   <div class="list-item"
+   onclick="openCourse('مطالعات اجتماعی','۱۲ فصل · ۲۱ فعالیت')">
+
+    <div class="list-icon">م</div>
+
+    <div class="list-info">
+
+     <h4>مطالعات اجتماعی</h4>
+
+     <p>آقای حسینی · کلاس ۷۰۱</p>
+
+    </div>
+
+    <span class="arrow">←</span>
+
+   </div>
+
+
+   <div class="list-item"
+   onclick="openCourse('عربی','۱۰ درس · ۱۵ فعالیت')">
+
+    <div class="list-icon">ع</div>
+
+    <div class="list-info">
+
+     <h4>عربی</h4>
+
+     <p>آقای موسوی · کلاس ۷۰۱</p>
+
+    </div>
+
+    <span class="arrow">←</span>
+
+   </div>
+
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+COURSE DETAIL
+========================================================= -->
+
+<section class="page" id="courseDetail">
+
+ <button class="back" onclick="go('courses')">
+  ← برگشت به درس‌ها
+ </button>
+
+ <div class="page-header">
+
+  <h2 id="courseTitle">
+   ریاضی هفتم
+  </h2>
+
+  <p id="courseDescription">
+   دوره آموزشی
+  </p>
+
+ </div>
+
+
+ <div class="detail-grid">
+
+
+  <div class="detail-card"
+  onclick="showToast('بخش درس‌ها باز شد')">
+
+   <h4>📖 محتوای درس</h4>
+
+   <p>
+    فصل‌ها، درس‌ها و مطالب آموزشی
+   </p>
+
+  </div>
+
+
+  <div class="detail-card"
+  onclick="go('tasks')">
+
+   <h4>📝 تکالیف</h4>
+
+   <p>
+    تکالیف مربوط به این درس
+   </p>
+
+  </div>
+
+
+  <div class="detail-card"
+  onclick="go('exams')">
+
+   <h4>📋 آزمون‌ها</h4>
+
+   <p>
+    آزمون‌های این درس
+   </p>
+
+  </div>
+
+
+  <div class="detail-card"
+  onclick="go('files')">
+
+   <h4>📁 فایل‌ها</h4>
+
+   <p>
+    جزوه و منابع آموزشی
+   </p>
+
+  </div>
+
+
+  <div class="detail-card"
+  onclick="showToast('انجمن درس باز شد')">
+
+   <h4>💬 انجمن درس</h4>
+
+   <p>
+    گفتگو و پرسش و پاسخ
+   </p>
+
+  </div>
+
+
+  <div class="detail-card"
+  onclick="showToast('پیشرفت دوره نمایش داده شد')">
+
+   <h4>📊 پیشرفت من</h4>
+
+   <p>
+    میزان پیشرفت در این دوره
+   </p>
+
+  </div>
+
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+TASKS
+========================================================= -->
+
+<section class="page" id="tasks">
+
+ <button class="back" onclick="go('home')">
+  ← برگشت
+ </button>
+
+ <div class="page-header">
+
+  <h2>تکالیف</h2>
+
+  <p>
+   برای مشاهده جزئیات یک تکلیف روی آن کلیک کن.
+  </p>
+
+ </div>
+
+
+ <div class="card">
+
+  <div class="list">
+
+
+   <div class="list-item"
+   onclick="openTask('تمرین صفحه ۴۲ ریاضی','ریاضی هفتم','فردا ساعت ۲۰:۰۰')">
+
+    <div class="list-icon">∑</div>
+
+    <div class="list-info">
+
+     <h4>
+      تمرین صفحه ۴۲ ریاضی
+     </h4>
+
+     <p>
+      ریاضی · مهلت فردا
+     </p>
+
+    </div>
+
+    <span class="badge">
+     فوری
+    </span>
+
+   </div>
+
+
+   <div class="list-item"
+   onclick="openTask('گزارش آزمایش علوم','علوم تجربی','۲ روز دیگر')">
+
+    <div class="list-icon">⚗</div>
+
+    <div class="list-info">
+
+     <h4>
+      گزارش آزمایش علوم
+     </h4>
+
+     <p>
+      علوم · مهلت ۲ روز دیگر
+     </p>
+
+    </div>
+
+    <span class="badge">
+     فعال
+    </span>
+
+   </div>
+
+
+   <div class="list-item"
+   onclick="openTask('Writing My School','انگلیسی','۴ روز دیگر')">
+
+    <div class="list-icon">A</div>
+
+    <div class="list-info">
+
+     <h4>
+      Writing — My School
+     </h4>
+
+     <p>
+      انگلیسی · مهلت ۴ روز دیگر
+     </p>
+
+    </div>
+
+    <span class="badge">
+     فعال
+    </span>
+
+   </div>
+
+
+   <div class="list-item">
+
+    <div class="list-icon">✓</div>
+
+    <div class="list-info">
+
+     <h4>
+      تمرین فارسی درس پنجم
+     </h4>
+
+     <p>
+      تحویل داده شده
+     </p>
+
+    </div>
+
+    <span class="badge" style="background:#e7f6ee;color:#278459">
+     کامل
+    </span>
+
+   </div>
+
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+EXAMS
+========================================================= -->
+
+<section class="page" id="exams">
+
+ <button class="back" onclick="go('home')">
+  ← برگشت
+ </button>
+
+ <div class="page-header">
+
+  <h2>آزمون‌ها</h2>
+
+  <p>
+   آزمون موردنظر را انتخاب کن.
+  </p>
+
+ </div>
+
+
+ <div class="card">
+
+  <div class="list">
+
+
+   <div class="list-item"
+   onclick="openExam('آزمون فصل اول ریاضی','۲۰ سؤال · ۳۰ دقیقه')">
+
+    <div class="list-icon">∑</div>
+
+    <div class="list-info">
+
+     <h4>
+      آزمون فصل اول ریاضی
+     </h4>
+
+     <p>
+      ۲۰ سؤال · ۳۰ دقیقه
+     </p>
+
+    </div>
+
+    <span class="badge">
+     شروع نشده
+    </span>
+
+   </div>
+
+
+   <div class="list-item"
+   onclick="openExam('آزمون علوم — اتم‌ها','۱۵ سؤال · ۲۰ دقیقه')">
+
+    <div class="list-icon">⚗</div>
+
+    <div class="list-info">
+
+     <h4>
+      آزمون علوم — اتم‌ها
+     </h4>
+
+     <p>
+      ۱۵ سؤال · ۲۰ دقیقه
+     </p>
+
+    </div>
+
+    <span class="badge">
+     فعال
+    </span>
+
+   </div>
+
+
+   <div class="list-item">
+
+    <div class="list-icon">✓</div>
+
+    <div class="list-info">
+
+     <h4>
+      آزمون فارسی درس ۴
+     </h4>
+
+     <p>
+      آزمون انجام شده
+     </p>
+
+    </div>
+
+    <span class="badge" style="background:#e7f6ee;color:#278459">
+     ۱۹
+    </span>
+
+   </div>
+
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+CALENDAR
+========================================================= -->
+
+<section class="page" id="calendar">
+
+ <button class="back" onclick="go('home')">
+  ← برگشت
+ </button>
+
+ <div class="page-header">
+
+  <h2>برنامه</h2>
+
+  <p>
+   برنامه کلاس‌های هفته
+  </p>
+
+ </div>
+
+
+ <div class="card">
+
+  <div class="list">
+
+
+   <div class="list-item">
+
+    <div class="list-icon">ش</div>
+
+    <div class="list-info">
+
+     <h4>شنبه</h4>
+
+     <p>
+      ریاضی · علوم · فارسی · ورزش
+     </p>
+
+    </div>
+
+   </div>
+
+
+   <div class="list-item">
+
+    <div class="list-icon">ی</div>
+
+    <div class="list-info">
+
+     <h4>یکشنبه</h4>
+
+     <p>
+      انگلیسی · مطالعات · ریاضی · هنر
+     </p>
+
+    </div>
+
+   </div>
+
+
+   <div class="list-item">
+
+    <div class="list-icon">د</div>
+
+    <div class="list-info">
+
+     <h4>دوشنبه</h4>
+
+     <p>
+      علوم · ریاضی · عربی · فارسی
+     </p>
+
+    </div>
+
+   </div>
+
+
+   <div class="list-item">
+
+    <div class="list-icon">س</div>
+
+    <div class="list-info">
+
+     <h4>سه‌شنبه</h4>
+
+     <p>
+      ریاضی · علوم · فارسی · ورزش
+     </p>
+
+    </div>
+
+   </div>
+
+
+   <div class="list-item">
+
+    <div class="list-icon">چ</div>
+
+    <div class="list-info">
+
+     <h4>چهارشنبه</h4>
+
+     <p>
+      فارسی · انگلیسی · مطالعات · هنر
+     </p>
+
+    </div>
+
+   </div>
+
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+GRADES
+========================================================= -->
+
+<section class="page" id="grades">
+
+ <button class="back" onclick="go('home')">
+  ← برگشت
+ </button>
+
+ <div class="page-header">
+
+  <h2>نمرات</h2>
+
+  <p>
+   کارنامه و نمرات درسی
+  </p>
+
+ </div>
+
+
+ <div class="card">
+
+  <div class="table-wrap">
+
+   <table>
+
+    <thead>
+
+     <tr>
+
+      <th>درس</th>
+      <th>فعالیت</th>
+      <th>آزمون</th>
+      <th>نمره</th>
+
+     </tr>
+
+    </thead>
+
+    <tbody>
+
+     <tr>
+      <td>ریاضی</td>
+      <td>۱۹</td>
+      <td>۱۹.۵</td>
+      <td class="grade">۱۹.۲۵</td>
+     </tr>
+
+     <tr>
+      <td>علوم</td>
+      <td>۱۹</td>
+      <td>۱۹</td>
+      <td class="grade">۱۹</td>
+     </tr>
+
+     <tr>
+      <td>فارسی</td>
+      <td>۱۸.۵</td>
+      <td>۱۹</td>
+      <td class="grade">۱۸.۷۵</td>
+     </tr>
+
+     <tr>
+      <td>انگلیسی</td>
+      <td>۱۸</td>
+      <td>۱۹</td>
+      <td class="grade">۱۸.۵</td>
+     </tr>
+
+    </tbody>
+
+   </table>
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+MESSAGES
+========================================================= -->
+
+<section class="page" id="messages">
+
+ <button class="back" onclick="go('home')">
+  ← برگشت
+ </button>
+
+ <div class="page-header">
+
+  <h2>پیام‌ها</h2>
+
+  <p>
+   پیام‌های مدرسه و معلم‌ها
+  </p>
+
+ </div>
+
+
+ <div class="card">
+
+  <div class="list">
+
+
+   <div class="list-item"
+   onclick="openModal('آقای احمدی','لطفاً تمرین صفحه ۴۲ را تا فردا انجام دهید.')">
+
+    <div class="list-icon">ا</div>
+
+    <div class="list-info">
+
+     <h4>آقای احمدی</h4>
+
+     <p>
+      تمرین ریاضی
+     </p>
+
+    </div>
+
+    <span class="arrow">←</span>
+
+   </div>
+
+
+   <div class="list-item"
+   onclick="openModal('خانم رضایی','گزارش آزمایش علوم تا دو روز آینده تحویل داده شود.')">
+
+    <div class="list-icon">ر</div>
+
+    <div class="list-info">
+
+     <h4>خانم رضایی</h4>
+
+     <p>
+      گزارش آزمایش
+     </p>
+
+    </div>
+
+    <span class="arrow">←</span>
+
+   </div>
+
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+NOTIFICATIONS
+========================================================= -->
+
+<section class="page" id="notifications">
+
+ <button class="back" onclick="go('home')">
+  ← برگشت
+ </button>
+
+ <div class="page-header">
+
+  <h2>اعلان‌ها</h2>
+
+  <p>
+   اطلاعیه‌های جدید
+  </p>
+
+ </div>
+
+
+ <div class="card">
+
+  <div class="list">
+
+
+   <div class="list-item">
+
+    <div class="list-icon">!</div>
+
+    <div class="list-info">
+
+     <h4>
+      تکلیف جدید ریاضی
+     </h4>
+
+     <p>
+      ۱۵ دقیقه پیش
+     </p>
+
+    </div>
+
+   </div>
+
+
+   <div class="list-item">
+
+    <div class="list-icon">!</div>
+
+    <div class="list-info">
+
+     <h4>
+      نمره علوم ثبت شد
+     </h4>
+
+     <p>
+      دیروز
+     </p>
+
+    </div>
+
+   </div>
+
+
+   <div class="list-item">
+
+    <div class="list-icon">!</div>
+
+    <div class="list-info">
+
+     <h4>
+      اطلاعیه مدرسه
+     </h4>
+
+     <p>
+      ۲ روز پیش
+     </p>
+
+    </div>
+
+   </div>
+
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+FILES
+========================================================= -->
+
+<section class="page" id="files">
+
+ <button class="back" onclick="go('home')">
+  ← برگشت
+ </button>
+
+ <div class="page-header">
+
+  <h2>فایل‌ها</h2>
+
+  <p>
+   منابع و فایل‌های آموزشی
+  </p>
+
+ </div>
+
+
+ <div class="card">
+
+  <div class="list">
+
+
+   <div class="list-item"
+   onclick="showToast('فایل انتخاب شد')">
+
+    <div class="list-icon">
+     PDF
+    </div>
+
+    <div class="list-info">
+
+     <h4>
+      جزوه ریاضی فصل اول
+     </h4>
+
+     <p>
+      ۲.۴ مگابایت
+     </p>
+
+    </div>
+
+    <span class="arrow">
+     ↓
+    </span>
+
+   </div>
+
+
+   <div class="list-item"
+   onclick="showToast('فایل انتخاب شد')">
+
+    <div class="list-icon">
+     PDF
+    </div>
+
+    <div class="list-info">
+
+     <h4>
+      جزوه علوم اتم‌ها
+     </h4>
+
+     <p>
+      ۴.۱ مگابایت
+     </p>
+
+    </div>
+
+    <span class="arrow">
+     ↓
+    </span>
+
+   </div>
+
+
+   <div class="list-item"
+   onclick="showToast('فایل انتخاب شد')">
+
+    <div class="list-icon">
+     DOC
+    </div>
+
+    <div class="list-info">
+
+     <h4>
+      نمونه سؤال فارسی
+     </h4>
+
+     <p>
+      ۱.۱ مگابایت
+     </p>
+
+    </div>
+
+    <span class="arrow">
+     ↓
+    </span>
+
+   </div>
+
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+SETTINGS
+========================================================= -->
+
+<section class="page" id="settings">
+
+ <button class="back" onclick="go('home')">
+  ← برگشت
+ </button>
+
+ <div class="page-header">
+
+  <h2>تنظیمات</h2>
+
+  <p>
+   تنظیمات حساب و سامانه
+  </p>
+
+ </div>
+
+
+ <div class="detail-grid">
+
+
+  <div class="detail-card"
+  onclick="showToast('تنظیمات حساب باز شد')">
+
+   <h4>👤 حساب کاربری</h4>
+
+   <p>
+    نام، اطلاعات و پروفایل
+   </p>
+
+  </div>
+
+
+  <div class="detail-card"
+  onclick="showToast('تنظیمات اعلان باز شد')">
+
+   <h4>🔔 اعلان‌ها</h4>
+
+   <p>
+    کنترل اعلان‌های سامانه
+   </p>
+
+  </div>
+
+
+  <div class="detail-card"
+  onclick="showToast('تنظیمات نمایش باز شد')">
+
+   <h4>🎨 ظاهر</h4>
+
+   <p>
+    اندازه و نحوه نمایش
+   </p>
+
+  </div>
+
+
+  <div class="detail-card"
+  onclick="showToast('امنیت حساب')">
+
+   <h4>🔐 امنیت</h4>
+
+   <p>
+    رمز عبور و ورود
+   </p>
+
+  </div>
+
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+TEACHER
+========================================================= -->
+
+<section class="page" id="teacherPanel">
+
+ <div class="page-header">
+
+  <h2>
+   پنل معلم
+  </h2>
+
+  <p>
+   مدیریت کلاس‌ها و محتوای آموزشی
+  </p>
+
+ </div>
+
+
+ <div class="home-grid">
+
+
+  <div class="home-card"
+  onclick="showToast('مدیریت کلاس‌ها')">
+
+   <div class="home-icon">👥</div>
+
+   <h3>کلاس‌ها</h3>
+
+   <p>مدیریت کلاس‌های من</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('ساخت تکلیف')">
+
+   <div class="home-icon">📝</div>
+
+   <h3>ساخت تکلیف</h3>
+
+   <p>ایجاد تکلیف جدید</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('ساخت آزمون')">
+
+   <div class="home-icon">📋</div>
+
+   <h3>ساخت آزمون</h3>
+
+   <p>ایجاد آزمون جدید</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('تصحیح تکالیف')">
+
+   <div class="home-icon">✓</div>
+
+   <h3>تصحیح</h3>
+
+   <p>بررسی تکالیف دانش‌آموزان</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('حضور و غیاب')">
+
+   <div class="home-icon">👥</div>
+
+   <h3>حضور و غیاب</h3>
+
+   <p>ثبت حضور کلاس</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('نمرات دانش‌آموزان')">
+
+   <div class="home-icon">📊</div>
+
+   <h3>نمرات</h3>
+
+   <p>ثبت و مدیریت نمرات</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('محتوای آموزشی')">
+
+   <div class="home-icon">📚</div>
+
+   <h3>محتوا</h3>
+
+   <p>افزودن جزوه و منابع</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('اعلان کلاس')">
+
+   <div class="home-icon">📢</div>
+
+   <h3>اعلان کلاس</h3>
+
+   <p>ارسال اطلاعیه به کلاس</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('گزارش عملکرد')">
+
+   <div class="home-icon">📈</div>
+
+   <h3>گزارش عملکرد</h3>
+
+   <p>مشاهده عملکرد کلاس</p>
+
+  </div>
+
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+MANAGER
+========================================================= -->
+
+<section class="page" id="managerPanel">
+
+ <div class="page-header">
+
+  <h2>
+   پنل مدیر
+  </h2>
+
+  <p>
+   مدیریت کامل مدرسه
+  </p>
+
+ </div>
+
+
+ <div class="home-grid">
+
+
+  <div class="home-card"
+  onclick="showToast('مدیریت دانش‌آموزان')">
+
+   <div class="home-icon">👨‍🎓</div>
+
+   <h3>دانش‌آموزان</h3>
+
+   <p>افزودن، ویرایش و مدیریت</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('مدیریت معلمان')">
+
+   <div class="home-icon">👨‍🏫</div>
+
+   <h3>معلمان</h3>
+
+   <p>مدیریت حساب معلمان</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('مدیریت کلاس‌ها')">
+
+   <div class="home-icon">🏫</div>
+
+   <h3>کلاس‌ها</h3>
+
+   <p>ساخت و مدیریت کلاس</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('مدیریت دروس')">
+
+   <div class="home-icon">📚</div>
+
+   <h3>دروس</h3>
+
+   <p>مدیریت دوره‌ها</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('مدیریت برنامه')">
+
+   <div class="home-icon">📅</div>
+
+   <h3>برنامه مدرسه</h3>
+
+   <p>برنامه کلاس‌ها</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('گزارش مدرسه')">
+
+   <div class="home-icon">📊</div>
+
+   <h3>گزارش‌ها</h3>
+
+   <p>آمار و گزارش مدرسه</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('اطلاعیه مدرسه')">
+
+   <div class="home-icon">📢</div>
+
+   <h3>اطلاعیه‌ها</h3>
+
+   <p>ارسال اطلاعیه عمومی</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('تنظیمات مدرسه')">
+
+   <div class="home-icon">⚙</div>
+
+   <h3>تنظیمات مدرسه</h3>
+
+   <p>تنظیمات اصلی سامانه</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('مدیریت سال تحصیلی')">
+
+   <div class="home-icon">🗓</div>
+
+   <h3>سال تحصیلی</h3>
+
+   <p>مدیریت ترم و سال</p>
+
+  </div>
+
+
+ </div>
+
+</section>
+
+
+<!-- =========================================================
+PARENT
+========================================================= -->
+
+<section class="page" id="parentPanel">
+
+ <div class="page-header">
+
+  <h2>
+   پنل والد
+  </h2>
+
+  <p>
+   مشاهده وضعیت تحصیلی فرزند
+  </p>
+
+ </div>
+
+
+ <div class="home-grid">
+
+
+  <div class="home-card"
+  onclick="go('grades')">
+
+   <div class="home-icon">📊</div>
+
+   <h3>نمرات</h3>
+
+   <p>مشاهده کارنامه</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="go('tasks')">
+
+   <div class="home-icon">📝</div>
+
+   <h3>تکالیف</h3>
+
+   <p>پیگیری تکالیف فرزند</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="go('calendar')">
+
+   <div class="home-icon">📅</div>
+
+   <h3>برنامه</h3>
+
+   <p>برنامه هفتگی</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('حضور و غیاب فرزند')">
+
+   <div class="home-icon">✓</div>
+
+   <h3>حضور و غیاب</h3>
+
+   <p>مشاهده حضور در کلاس</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="showToast('گزارش پیشرفت')">
+
+   <div class="home-icon">📈</div>
+
+   <h3>پیشرفت</h3>
+
+   <p>گزارش پیشرفت تحصیلی</p>
+
+  </div>
+
+
+  <div class="home-card"
+  onclick="go('messages')">
+
+   <div class="home-icon">✉</div>
+
+   <h3>ارتباط با مدرسه</h3>
+
+   <p>پیام به معلمان و مدرسه</p>
+
+  </div>
+
+
+ </div>
+
+</section>
+
+
+ </div>
+
+</main>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+ <div class="modal-box">
+
+  <div class="modal-head">
+
+   <h3 id="modalTitle"></h3>
+
+   <button class="close"
+   onclick="closeModal()">×</button>
+
+  </div>
+
+  <p id="modalText"
+  style="font-size:12px;color:#707985;line-height:2"></p>
+
+  <div style="margin-top:20px">
+
+   <button class="action primary"
+   onclick="closeModal()">
+    متوجه شدم
+   </button>
+
+  </div>
+
+ </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================================
+ NAVIGATION
+========================================================= */
+
+function go(page,button){
+
+ document.querySelectorAll(".page")
+ .forEach(x=>x.classList.remove("active"));
+
+ const target=document.getElementById(page);
+
+ if(target){
+  target.classList.add("active");
+ }
+
+ document.querySelectorAll(".menu button")
+ .forEach(x=>x.classList.remove("active"));
+
+ if(button){
+  button.classList.add("active");
+ }
+
+ document.getElementById("sidebar")
+ .classList.remove("open");
+
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
+}
+
+
+/* =========================================================
+ COURSE
+========================================================= */
+
+function openCourse(title,description){
+
+ document.getElementById("courseTitle")
+ .textContent=title;
+
+ document.getElementById("courseDescription")
+ .textContent=description;
+
+ go("courseDetail");
+}
+
+
+/* =========================================================
+ TASK
+========================================================= */
+
+function openTask(title,course,deadline){
+
+ openModal(
+  title,
+  "درس: "+course+
+  "\n\nمهلت تحویل: "+deadline+
+  "\n\nاینجا در نسخه‌های بعدی امکان مشاهده صورت سؤال، آپلود پاسخ، ارسال فایل، نوشتن پاسخ، مشاهده نمره و بازخورد معلم قرار می‌گیرد."
+ );
+}
+
+
+/* =========================================================
+ EXAM
+========================================================= */
+
+function openExam(title,info){
+
+ openModal(
+  title,
+  info+
+  "\n\nدر نسخه بعدی با زدن شروع آزمون، وارد صفحه آزمون واقعی می‌شوی؛ سؤال‌ها یکی‌یکی نمایش داده می‌شوند و زمان باقی‌مانده هم نمایش داده خواهد شد."
+ );
+}
+
+
+/* =========================================================
+ ROLE SWITCH
+========================================================= */
+
+function changeRole(){
+
+ const role=document
+ .getElementById("roleSelect")
+ .value;
+
+ document.querySelectorAll(".page")
+ .forEach(x=>x.classList.remove("active"));
+
+ if(role==="student"){
+
+  document.getElementById("home")
+  .classList.add("active");
+
+  document.getElementById("welcomeTitle")
+  .textContent="سلام آرسان 👋";
+
+  document.getElementById("welcomeText")
+  .textContent="از اینجا بخش موردنظرت را انتخاب کن.";
+
+  document.getElementById("userName")
+  .textContent="آرسان";
+
+  document.getElementById("avatar")
+  .textContent="آ";
+
+ }
+
+ if(role==="teacher"){
+
+  document.getElementById("teacherPanel")
+  .classList.add("active");
+
+  document.getElementById("welcomeTitle")
+  .textContent="پنل معلم";
+
+  document.getElementById("userName")
+  .textContent="معلم";
+
+  document.getElementById("avatar")
+  .textContent="م";
+
+ }
+
+ if(role==="manager"){
+
+  document.getElementById("managerPanel")
+  .classList.add("active");
+
+  document.getElementById("welcomeTitle")
+  .textContent="پنل مدیر";
+
+  document.getElementById("userName")
+  .textContent="مدیر";
+
+  document.getElementById("avatar")
+  .textContent="د";
+
+ }
+
+ if(role==="parent"){
+
+  document.getElementById("parentPanel")
+  .classList.add("active");
+
+  document.getElementById("welcomeTitle")
+  .textContent="پنل والد";
+
+  document.getElementById("userName")
+  .textContent="والد";
+
+  document.getElementById("avatar")
+  .textContent="و";
+
+ }
+
+ document.querySelectorAll(".menu button")
+ .forEach(x=>x.classList.remove("active"));
+
+ showToast(
+  role==="student" ? "حالت دانش‌آموز فعال شد":
+  role==="teacher" ? "حالت معلم فعال شد":
+  role==="manager" ? "حالت مدیر فعال شد":
+  "حالت والد فعال شد"
+ );
+
+}
+
+
+/* =========================================================
+ MODAL
+========================================================= */
+
+function openModal(title,text){
+
+ document.getElementById("modalTitle")
+ .textContent=title;
+
+ document.getElementById("modalText")
+ .textContent=text;
+
+ document.getElementById("modal")
+ .classList.add("show");
+
+}
+
+
+function closeModal(){
+
+ document.getElementById("modal")
+ .classList.remove("show");
+
+}
+
+
+document.getElementById("modal")
+.addEventListener("click",function(e){
+
+ if(e.target===this){
+  closeModal();
+ }
+
+});
+
+
+/* =========================================================
+ TOAST
+========================================================= */
+
+let toastTimer;
+
+function showToast(text){
+
+ const toast=document
+ .getElementById("toast");
+
+ toast.textContent=text;
+
+ toast.classList.add("show");
+
+ clearTimeout(toastTimer);
+
+ toastTimer=setTimeout(()=>{
+  toast.classList.remove("show");
+ },2200);
+
+}
+
+
+/* =========================================================
+ SEARCH
+========================================================= */
+
+function searchSite(event){
+
+ if(event.key!=="Enter") return;
+
+ const value=event.target.value.trim();
+
+ if(!value){
+  showToast("عبارتی برای جستجو وارد کن");
+  return;
+ }
+
+ showToast("جستجو برای «"+value+"» در نسخه بعدی کامل می‌شود");
+
+}
+
+
+/* =========================================================
+ ESC
+========================================================= */
+
+document.addEventListener("keydown",function(e){
+
+ if(e.key==="Escape"){
+  closeModal();
+ }
+
+});
+
+</script>
+
+</body>
+</html>
